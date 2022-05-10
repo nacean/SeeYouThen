@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Footer from './footer/Footer';
 import Header from './header/Header';
 
-function Layout({ children }) {
+interface layoutType {
+  children: ReactElement;
+}
+
+function Layout({ children }: layoutType) {
   return (
     <>
       <Header />

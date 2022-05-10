@@ -4,7 +4,7 @@ import style from './Header.module.scss';
 function Header() {
   return (
     <header className={style.headerContainer}>
-      <h2 className={style.mainTitle}>SeeYouThen</h2>
+      <h1 className={style.mainTitle}>SeeYouThen</h1>
       <nav className={style.navBar}>
         <ul>
           <li>
