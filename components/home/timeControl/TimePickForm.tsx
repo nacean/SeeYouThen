@@ -4,22 +4,24 @@ import { useRecoilState } from 'recoil';
 import nowPickTimeState from '../../../atoms/nowPickTimeState';
 import pickedTimesState from '../../../atoms/pickedTimesState';
 import { v4 as uuidv4 } from 'uuid';
+import timeBlockState from '../../../atoms/timeBlockState';
 function TimePickForm() {
   const [nowPickTime, setNowPickTime] = useRecoilState(nowPickTimeState);
   const [pickedTimes, setPickedTimes] = useRecoilState(pickedTimesState);
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const newTime = {
-          key: uuidv4(),
-          times: nowPickTime,
-        };
 
-        setPickedTimes([...pickedTimes, newTime]);
-        setNowPickTime([null, null]);
-      }}
-    >
+  const onTimeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newTime = {
+      key: uuidv4(),
+      times: nowPickTime,
+    };
+
+    setPickedTimes([...pickedTimes, newTime]);
+    setNowPickTime([null, null]);
+  };
+
+  return (
+    <form onSubmit={onTimeSubmit}>
       <TimePicker.RangePicker
         onChange={(times) => {
           if (times !== null) setNowPickTime([times[0], times[1]]);

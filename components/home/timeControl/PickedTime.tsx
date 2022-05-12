@@ -35,12 +35,13 @@ function PickedTime({ pickedTime }: timeType) {
     setEndTime(e[1]);
     const editTime = {
       key: pickedTime.key,
-      times: [startTime, endTime],
+      times: [e[0], e[1]],
     };
     const editedPickedTimes = pickedTimes.map(
       (tempPickedTime: pickedTimesType) =>
         tempPickedTime.key === pickedTime.key ? editTime : tempPickedTime,
     );
+    setPickedTimes(editedPickedTimes);
   };
 
   return (

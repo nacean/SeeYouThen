@@ -1,5 +1,4 @@
-import { Moment } from 'moment';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { useRecoilValue } from 'recoil';
 import pickedTimesState from '../../../atoms/pickedTimesState';
 import PickedTime from './PickedTime';
@@ -9,7 +8,7 @@ function PickedTimeShow() {
   return (
     <div className={styles.timeShowBox}>
       {pickedTimes.map((pickedTime) => (
-        <PickedTime pickedTime={pickedTime} />
+        <PickedTime key={pickedTime.key} pickedTime={pickedTime} />
       ))}
     </div>
   );
