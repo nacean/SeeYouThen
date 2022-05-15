@@ -1,44 +1,36 @@
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import pickedTimesState, {
-  pickedTimesType,
-} from '../../../atoms/pickedTimesState';
-import timeBlockState from '../../../atoms/timeBlockState';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import timeBlockState, {
+  blockType,
+  timeBlockType,
+} from '../../../atoms/timeBlockState';
+import TimeResultBlock from './TimeResultBlock';
 import styles from './TimeResultContainer.module.scss';
 function TimeResultContainer() {
-  const [timeBlocks, setTimeBlocks] = useRecoilState(timeBlockState);
-  const pickedTimes = useRecoilValue(pickedTimesState);
+  const timeBlocks = useRecoilValue(timeBlockState);
 
-  useEffect(() => {
-    console.log('mooyaho');
-    const newTimeBlocks: Boolean[] = [];
-
-    for (let i = 0; i <= 47; i++) {
-      newTimeBlocks.push(false);
-    }
-
-    pickedTimes.forEach(({ key, times }: pickedTimesType) => {
-      const startNum = times[0].hour() * 2 + (times[0].minute() ? 1 : 0);
-      const endNum = times[1].hour() * 2 + (times[1].minute() ? 1 : 0);
-
-      for (let i = startNum; i < endNum; i++) {
-        newTimeBlocks[i] = true;
-      }
-    });
-
-    setTimeBlocks(newTimeBlocks);
-  }, [pickedTimes]);
-
+  console.log(timeBlocks);
   return (
     <section className={styles.timeResultContainer}>
       <h2>Time Result</h2>
-      {timeBlocks.map((blockBool: Boolean) => (
-        <div
-          className={
-            blockBool ? styles.timeBlockColored : styles.timeBlockGlass
-          }
-        ></div>
-      ))}
+      <div className={styles.timePerDateBox}>
+        {timeBlocks.map((timeBlockParam: timeBlockType) => {
+          return (
+            <div key={timeBlockParam.date} className={styles.timeBlock}>
+              <h3>{timeBlockParam.date}</h3>
+              {timeBlockParam.blocks.map((blockParam: blockType) => {
+                return (
+                  <TimeResultBlock
+                    row={blockParam.row}
+                    col={timeBlockParam.col}
+                    colored={blockParam.colored}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }

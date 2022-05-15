@@ -1,14 +1,20 @@
+import { Moment } from 'moment';
 import { atom } from 'recoil';
 
-const timeArray: Boolean[] = [];
-
-for (let i = 0; i <= 47; i++) {
-  timeArray.push(false);
+export interface blockType {
+  row: number;
+  colored: Boolean;
 }
 
-const timeBlockState = atom<Boolean[]>({
+export interface timeBlockType {
+  date: string;
+  col: number;
+  blocks: blockType[];
+}
+
+const timeBlockState = atom<timeBlockType[]>({
   key: 'timeBlockState',
-  default: timeArray,
+  default: [],
 });
 
 export default timeBlockState;

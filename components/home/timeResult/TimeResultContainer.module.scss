@@ -3,21 +3,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: scroll;
 
   h2 {
     margin-bottom: 20px;
   }
 
-  .timeBlockColored {
-    width: 50px;
-    height: 25px;
-    border: 1px solid black;
-    opacity: 0.8;
-    background-color: pink;
+  .timePerDateBox {
+    width: 100%;
+    height: 100%;
+    border: 1px solid pink;
+    display: flex;
+    justify-content: center;
   }
-  .timeBlockGlass {
-    width: 50px;
-    height: 25px;
-    border: 1px solid black;
+  .timeBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
