@@ -1,3 +1,4 @@
+import moment, { Moment } from 'moment';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import timeBlockState, {
@@ -9,11 +10,26 @@ import styles from './TimeResultContainer.module.scss';
 function TimeResultContainer() {
   const timeBlocks = useRecoilValue(timeBlockState);
 
-  console.log(timeBlocks);
+  const makeTimeLine = () => {
+    const timeLines: string[] = [];
+    timeLines.push('time');
+    for (let i = 0; i <= 47; i++) {
+      timeLines.push(
+        moment('00:00', 'HH:mm')
+          .add(i * 30, 'minutes')
+          .format('HH:mm'),
+      );
+    }
+    return timeLines.map((timeLineParam: string) => (
+      <li className={styles.timeLineList}>{timeLineParam}</li>
+    ));
+  };
+
   return (
     <section className={styles.timeResultContainer}>
       <h2>Time Result</h2>
       <div className={styles.timePerDateBox}>
+        <ul>{makeTimeLine()}</ul>
         {timeBlocks.map((timeBlockParam: timeBlockType) => {
           return (
             <div key={timeBlockParam.date} className={styles.timeBlock}>

@@ -7,7 +7,7 @@ import timeBlockState, { timeBlockType } from '../../../atoms/timeBlockState';
 import getBlankTimeBlock from '../../../modules/timeModules/getBlankTimeBlock';
 const { RangePicker } = DatePicker;
 
-function DatePick() {
+function DatePickForm() {
   const [datePick, setDatePick] =
     useRecoilState<(Moment | null)[]>(datePickState);
   const setTimeBlock = useSetRecoilState(timeBlockState);
@@ -51,8 +51,9 @@ function DatePick() {
     <RangePicker
       value={[datePick[0], datePick[1]]}
       onChange={onDatePickChange}
+      placement="topRight"
     />
   );
 }
 
-export default DatePick;
+export default DatePickForm;
