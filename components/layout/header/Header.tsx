@@ -6,10 +6,15 @@ function Header() {
     <header className={style.headerContainer}>
       <h1 className={style.mainTitle}>SeeYouThen</h1>
       <nav className={style.navBar}>
-        <ul>
+        <ul className={style.navList}>
           <li>
             <Link href="/">
               <a>Home</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/MakeRoomPage">
+              <a>방만들기</a>
             </Link>
           </li>
         </ul>

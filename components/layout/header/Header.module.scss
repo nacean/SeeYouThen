@@ -17,5 +17,13 @@
     align-items: center;
     font-size: 18px;
     font-weight: 500;
+
+    .navList {
+      display: flex;
+
+      li {
+        margin-right: 10px;
+      }
+    }
   }
 }
