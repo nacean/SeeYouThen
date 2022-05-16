@@ -13,7 +13,7 @@ function TimeResultContainer() {
   const makeTimeLine = () => {
     const timeLines: string[] = [];
     timeLines.push('time');
-    for (let i = 0; i <= 47; i++) {
+    for (let i = 0; i <= 48; i++) {
       timeLines.push(
         moment('00:00', 'HH:mm')
           .add(i * 30, 'minutes')
@@ -27,7 +27,6 @@ function TimeResultContainer() {
 
   return (
     <section className={styles.timeResultContainer}>
-      <h2>Time Result</h2>
       <div className={styles.timePerDateBox}>
         <ul>{makeTimeLine()}</ul>
         {timeBlocks.map((timeBlockParam: timeBlockType) => {
