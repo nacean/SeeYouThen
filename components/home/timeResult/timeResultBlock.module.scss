@@ -1,19 +1,27 @@
-.timeBlockColored {
+@mixin blockSize {
   width: 50px;
   height: 20px;
   border: 1px solid black;
+}
+
+.timeBlockColored {
+  @include blockSize;
   opacity: 0.8;
   background-color: pink;
+
+  &:hover {
+    background-color: plum;
+  }
 }
 .timeBlockGlass {
-  width: 50px;
-  height: 20px;
-  border: 1px solid black;
+  @include blockSize;
+
+  &:hover {
+    background-color: plum;
+  }
 }
 .timeBlockSelected {
-  width: 50px;
-  height: 20px;
-  border: 1px solid black;
+  @include blockSize;
   background-color: pink;
   opacity: 0.1;
 }
