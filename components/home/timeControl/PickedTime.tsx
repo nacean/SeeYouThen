@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import pickedTimesState, {
   pickedTimesType,
-} from '../../../atoms/pickedTimesState';
+} from '../../../atoms/timeAtoms/pickedTimesState';
 import styles from './PickedTime.module.scss';
 
 interface timeType {

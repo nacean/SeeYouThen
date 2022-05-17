@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, DatePicker, Popconfirm } from 'antd';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import datePickState from '../../../atoms/datePickState';
+import datePickState from '../../../atoms/timeAtoms/datePickState';
 import { Moment } from 'moment';
-import timeBlockState, { timeBlockType } from '../../../atoms/timeBlockState';
+import timeBlockState, {
+  timeBlockType,
+} from '../../../atoms/timeAtoms/timeBlockState';
 import getBlankTimeBlock from '../../../modules/timeModules/getBlankTimeBlock';
 const { RangePicker } = DatePicker;
 

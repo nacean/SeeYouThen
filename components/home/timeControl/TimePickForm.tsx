@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, TimePicker } from 'antd';
 import { useRecoilState } from 'recoil';
-import nowPickTimeState from '../../../atoms/nowPickTimeState';
-import pickedTimesState from '../../../atoms/pickedTimesState';
+import nowPickTimeState from '../../../atoms/timeAtoms/nowPickTimeState';
+import pickedTimesState from '../../../atoms/timeAtoms/pickedTimesState';
 import { v4 as uuidv4 } from 'uuid';
-import timeBlockState from '../../../atoms/timeBlockState';
+import timeBlockState from '../../../atoms/timeAtoms/timeBlockState';
 function TimePickForm() {
   const [nowPickTime, setNowPickTime] = useRecoilState(nowPickTimeState);
   const [pickedTimes, setPickedTimes] = useRecoilState(pickedTimesState);

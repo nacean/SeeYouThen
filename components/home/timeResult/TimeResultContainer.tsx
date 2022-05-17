@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import timeBlockState, {
   blockType,
   timeBlockType,
-} from '../../../atoms/timeBlockState';
+} from '../../../atoms/timeAtoms/timeBlockState';
 import TimeResultBlock from './TimeResultBlock';
 import styles from './TimeResultContainer.module.scss';
 function TimeResultContainer() {

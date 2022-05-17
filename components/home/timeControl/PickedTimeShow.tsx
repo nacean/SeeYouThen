@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import pickedTimesState from '../../../atoms/pickedTimesState';
+import pickedTimesState from '../../../atoms/timeAtoms/pickedTimesState';
 import PickedTime from './PickedTime';
 import styles from './PickedTimeShow.module.scss';
 function PickedTimeShow() {

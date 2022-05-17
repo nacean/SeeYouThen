@@ -1,8 +1,10 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import clickedTimeBlockState from '../../../atoms/clickedTimeBlockState';
-import mouseOverTimeBlockState from '../../../atoms/mouseOverTimeBlockState';
-import timeBlockState, { timeBlockType } from '../../../atoms/timeBlockState';
+import clickedTimeBlockState from '../../../atoms/timeAtoms/clickedTimeBlockState';
+import mouseOverTimeBlockState from '../../../atoms/timeAtoms/mouseOverTimeBlockState';
+import timeBlockState, {
+  timeBlockType,
+} from '../../../atoms/timeAtoms/timeBlockState';
 import styles from './timeResultBlock.module.scss';
 
 interface TimeResultBlockType {
