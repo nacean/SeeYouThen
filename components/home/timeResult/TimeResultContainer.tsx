@@ -44,8 +44,10 @@ function TimeResultContainer() {
                     col={timeBlockParam.col}
                     colored={blockParam.usingUsers.indexOf(nowPickUser) !== -1}
                     allUserSelect={
+                      roomUsers.length !== 0 &&
                       roomUsers.length === blockParam.usingUsers.length
                     }
+                    blockUsingUsers={blockParam.usingUsers}
                   />
                 );
               })}

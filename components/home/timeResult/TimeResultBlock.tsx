@@ -1,9 +1,11 @@
+import { Popover } from 'antd';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
 import clickedTimeBlockState from '../../../atoms/timeAtoms/clickedTimeBlockState';
 import mouseOverTimeBlockState from '../../../atoms/timeAtoms/mouseOverTimeBlockState';
 import timeBlockState, {
+  blockType,
   timeBlockType,
 } from '../../../atoms/timeAtoms/timeBlockState';
 import getRowCol from '../../../modules/timeModules/getRowCol';
@@ -14,6 +16,7 @@ interface TimeResultBlockType {
   col: number;
   colored: Boolean;
   allUserSelect: Boolean;
+  blockUsingUsers: string[];
 }
 
 function TimeResultBlock({
@@ -21,6 +24,7 @@ function TimeResultBlock({
   col,
   colored,
   allUserSelect,
+  blockUsingUsers,
 }: TimeResultBlockType) {
   const [clickedTimeBlock, setClickedTimeBlock] = useRecoilState(
     clickedTimeBlockState,
@@ -48,23 +52,36 @@ function TimeResultBlock({
       clickedTimeBlock.row,
     );
 
+    const userPutInOrNot = (rowBlockParam: blockType): string[] => {
+      const nowUserIn = rowBlockParam.usingUsers.indexOf(nowPickUser) !== -1;
+
+      if (clickedTimeBlock.clickIsColored) {
+        return nowUserIn
+          ? rowBlockParam.usingUsers.filter(
+              (userParam: string) => userParam !== nowPickUser,
+            )
+          : rowBlockParam.usingUsers;
+      } else {
+        return nowUserIn
+          ? rowBlockParam.usingUsers
+          : [...rowBlockParam.usingUsers, nowPickUser];
+      }
+    };
+
     const newTimeBlocks: timeBlockType[] = timeBlocks.map((colBlockParam) => {
       if (colBlockParam.col >= left && colBlockParam.col <= right) {
-        const newRowBlock = colBlockParam.blocks.map((rowBlockParam) => {
-          if (rowBlockParam.row >= up && rowBlockParam.row <= down) {
-            return {
-              ...rowBlockParam,
-              usingUsers:
-                rowBlockParam.usingUsers.indexOf(nowPickUser) !== -1
-                  ? rowBlockParam.usingUsers.filter(
-                      (userParam: string) => userParam !== nowPickUser,
-                    )
-                  : [...rowBlockParam.usingUsers, nowPickUser],
-            };
-          } else {
-            return rowBlockParam;
-          }
-        });
+        const newRowBlock = colBlockParam.blocks.map(
+          (rowBlockParam: blockType) => {
+            if (rowBlockParam.row >= up && rowBlockParam.row <= down) {
+              return {
+                ...rowBlockParam,
+                usingUsers: userPutInOrNot(rowBlockParam),
+              };
+            } else {
+              return rowBlockParam;
+            }
+          },
+        );
 
         return {
           ...colBlockParam,
@@ -107,12 +124,24 @@ function TimeResultBlock({
     else return styles.timeBlockGlass;
   };
 
+  const popOverUserList = () => {
+    return (
+      <ul>
+        {blockUsingUsers.map((userParam) => (
+          <li>{userParam}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
-    <div
-      className={blockColor()}
-      onClick={onClickTimeBlock}
-      onMouseOver={onMouseOverTimeBlock}
-    ></div>
+    <Popover content={popOverUserList} placement="leftBottom">
+      <div
+        className={blockColor()}
+        onClick={onClickTimeBlock}
+        onMouseOver={onMouseOverTimeBlock}
+      ></div>
+    </Popover>
   );
 }
 
