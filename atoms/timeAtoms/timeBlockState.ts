@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 
 export interface blockType {
   row: number;
-  colored: Boolean;
+  usingUsers: string[];
 }
 
 export interface timeBlockType {

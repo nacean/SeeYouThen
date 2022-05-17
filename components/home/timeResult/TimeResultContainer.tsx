@@ -1,6 +1,8 @@
 import moment, { Moment } from 'moment';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
+import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import timeBlockState, {
   blockType,
   timeBlockType,
@@ -9,6 +11,8 @@ import TimeResultBlock from './TimeResultBlock';
 import styles from './TimeResultContainer.module.scss';
 function TimeResultContainer() {
   const timeBlocks = useRecoilValue(timeBlockState);
+  const nowPickUser = useRecoilValue(nowPickUserState);
+  const roomUsers = useRecoilValue(roomUsersState);
 
   const makeTimeLine = () => {
     const timeLines: string[] = [];
@@ -38,7 +42,10 @@ function TimeResultContainer() {
                   <TimeResultBlock
                     row={blockParam.row}
                     col={timeBlockParam.col}
-                    colored={blockParam.colored}
+                    colored={blockParam.usingUsers.indexOf(nowPickUser) !== -1}
+                    allUserSelect={
+                      roomUsers.length === blockParam.usingUsers.length
+                    }
                   />
                 );
               })}

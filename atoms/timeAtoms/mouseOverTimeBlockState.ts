@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 
-export interface clickedTimeBlockType {
+export interface mouseOverTimeBlockStateType {
   row: number;
   col: number;
 }
 
-const mouseOverTimeBlockState = atom<clickedTimeBlockType>({
+const mouseOverTimeBlockState = atom<mouseOverTimeBlockStateType>({
   key: 'mouseOverTimeBlockState',
   default: null,
 });

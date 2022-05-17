@@ -1,19 +1,27 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
 import clickedTimeBlockState from '../../../atoms/timeAtoms/clickedTimeBlockState';
 import mouseOverTimeBlockState from '../../../atoms/timeAtoms/mouseOverTimeBlockState';
 import timeBlockState, {
   timeBlockType,
 } from '../../../atoms/timeAtoms/timeBlockState';
+import getRowCol from '../../../modules/timeModules/getRowCol';
 import styles from './timeResultBlock.module.scss';
 
 interface TimeResultBlockType {
   row: number;
   col: number;
   colored: Boolean;
+  allUserSelect: Boolean;
 }
 
-function TimeResultBlock({ row, col, colored }: TimeResultBlockType) {
+function TimeResultBlock({
+  row,
+  col,
+  colored,
+  allUserSelect,
+}: TimeResultBlockType) {
   const [clickedTimeBlock, setClickedTimeBlock] = useRecoilState(
     clickedTimeBlockState,
   );
@@ -21,19 +29,24 @@ function TimeResultBlock({ row, col, colored }: TimeResultBlockType) {
   const [mouseOverTimeBlock, setMouseOverTimeBlock] = useRecoilState(
     mouseOverTimeBlockState,
   );
+  const nowPickUser = useRecoilValue(nowPickUserState);
+
   const onClickTimeBlock = () => {
+    if (nowPickUser === null) {
+      alert('유저를 먼저 선택해주세요');
+      return;
+    }
     if (!clickedTimeBlock) {
       setClickedTimeBlock({ row, col, clickIsColored: colored });
       return;
     }
 
-    const left: number =
-      col < clickedTimeBlock.col ? col : clickedTimeBlock.col;
-    const right: number =
-      col > clickedTimeBlock.col ? col : clickedTimeBlock.col;
-    const up: number = row < clickedTimeBlock.row ? row : clickedTimeBlock.row;
-    const down: number =
-      row > clickedTimeBlock.row ? row : clickedTimeBlock.row;
+    const { left, right, up, down } = getRowCol(
+      col,
+      clickedTimeBlock.col,
+      row,
+      clickedTimeBlock.row,
+    );
 
     const newTimeBlocks: timeBlockType[] = timeBlocks.map((colBlockParam) => {
       if (colBlockParam.col >= left && colBlockParam.col <= right) {
@@ -41,7 +54,12 @@ function TimeResultBlock({ row, col, colored }: TimeResultBlockType) {
           if (rowBlockParam.row >= up && rowBlockParam.row <= down) {
             return {
               ...rowBlockParam,
-              colored: clickedTimeBlock.clickIsColored ? false : true,
+              usingUsers:
+                rowBlockParam.usingUsers.indexOf(nowPickUser) !== -1
+                  ? rowBlockParam.usingUsers.filter(
+                      (userParam: string) => userParam !== nowPickUser,
+                    )
+                  : [...rowBlockParam.usingUsers, nowPickUser],
             };
           } else {
             return rowBlockParam;
@@ -70,22 +88,12 @@ function TimeResultBlock({ row, col, colored }: TimeResultBlockType) {
   const checkBlockShouldColored = () => {
     if (!clickedTimeBlock || !mouseOverTimeBlock) return false;
 
-    const left: number =
-      mouseOverTimeBlock.col < clickedTimeBlock.col
-        ? mouseOverTimeBlock.col
-        : clickedTimeBlock.col;
-    const right: number =
-      mouseOverTimeBlock.col > clickedTimeBlock.col
-        ? mouseOverTimeBlock.col
-        : clickedTimeBlock.col;
-    const up: number =
-      mouseOverTimeBlock.row < clickedTimeBlock.row
-        ? mouseOverTimeBlock.row
-        : clickedTimeBlock.row;
-    const down: number =
-      mouseOverTimeBlock.row > clickedTimeBlock.row
-        ? mouseOverTimeBlock.row
-        : clickedTimeBlock.row;
+    const { left, right, up, down } = getRowCol(
+      mouseOverTimeBlock.col,
+      clickedTimeBlock.col,
+      mouseOverTimeBlock.row,
+      clickedTimeBlock.row,
+    );
 
     if (left <= col && col <= right && up <= row && row <= down) return true;
 
@@ -94,6 +102,7 @@ function TimeResultBlock({ row, col, colored }: TimeResultBlockType) {
 
   const blockColor = () => {
     if (checkBlockShouldColored()) return styles.timeBlockSelected;
+    else if (allUserSelect) return styles.timeBlockAllUserSelect;
     else if (colored) return styles.timeBlockColored;
     else return styles.timeBlockGlass;
   };

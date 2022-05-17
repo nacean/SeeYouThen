@@ -1,10 +1,10 @@
-import { blockType } from '../../atoms/timeBlockState';
+import { blockType } from '../../atoms/timeAtoms/timeBlockState';
 
 function getBlankTimeBlock(): blockType[] {
   const timeArray: blockType[] = [];
 
   for (let i = 0; i <= 47; i++) {
-    timeArray.push({ row: i, colored: false });
+    timeArray.push({ row: i, usingUsers: [] });
   }
   return timeArray;
 }
