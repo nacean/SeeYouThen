@@ -1,14 +1,16 @@
 import React from 'react';
 import styles from './RoomUserAddForm.module.scss';
 import { Form, Input, Button } from 'antd';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import addingRoomUserState from '../../../atoms/roomUserAtoms/addingRoomUserState';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
+import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
 
 function RoomUserAddForm() {
   const [addingRoomUser, setAddingRoomUser] =
     useRecoilState(addingRoomUserState);
   const [roomUsers, setRoomUsers] = useRecoilState(roomUsersState);
+  const setNowPickUser = useSetRecoilState(nowPickUserState);
   const [form] = Form.useForm();
 
   const onAddUserFormFinish = () => {
@@ -22,6 +24,7 @@ function RoomUserAddForm() {
       return;
     }
     setRoomUsers([...roomUsers, addingRoomUser]);
+    setNowPickUser(addingRoomUser);
     setAddingRoomUser(null);
     form.setFieldsValue({
       username: null,
