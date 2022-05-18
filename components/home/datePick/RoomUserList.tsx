@@ -17,7 +17,7 @@ function RoomUserList() {
       )}
       <ul className={styles.roomUserList}>
         {roomUsers.map((roomUser: string) => (
-          <RoomUser username={roomUser} />
+          <RoomUser username={roomUser} isPicked={roomUser === nowPickUser} />
         ))}
       </ul>
     </div>

@@ -37,7 +37,6 @@ function DatePickForm() {
 
     let tempCol: number = 0;
     while (1) {
-      console.log(startDate);
       const tempBlock: timeBlockType = {
         date: startDate.format('MM-DD'),
         col: tempCol++,

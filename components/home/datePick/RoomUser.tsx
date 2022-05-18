@@ -6,15 +6,20 @@ import styles from './RoomUser.module.scss';
 
 interface roomUserType {
   username: string;
+  isPicked: Boolean;
 }
 
-function RoomUser({ username }: roomUserType) {
+function RoomUser({ username, isPicked }: roomUserType) {
   const setNowPickUser = useSetRecoilState(nowPickUserState);
   const onClickUser = () => {
     setNowPickUser(username);
   };
   return (
-    <li className={styles.roomUser} onClick={onClickUser}>
+    <li
+      className={isPicked ? styles.roomUserPicked : styles.roomUser}
+      onClick={onClickUser}
+      key={username}
+    >
       {username}
     </li>
   );

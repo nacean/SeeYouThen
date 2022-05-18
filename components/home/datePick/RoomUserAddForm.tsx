@@ -9,8 +9,13 @@ function RoomUserAddForm() {
   const [addingRoomUser, setAddingRoomUser] =
     useRecoilState(addingRoomUserState);
   const [roomUsers, setRoomUsers] = useRecoilState(roomUsersState);
+  const [form] = Form.useForm();
 
   const onAddUserFormFinish = () => {
+    if (addingRoomUser === null || addingRoomUser === '') {
+      alert('1글자 이상의 이름만 가능합니다');
+      return;
+    }
     const isThereSameName = roomUsers.indexOf(addingRoomUser);
     if (isThereSameName !== -1) {
       alert('동일한 이름이 존재합니다!');
@@ -18,11 +23,19 @@ function RoomUserAddForm() {
     }
     setRoomUsers([...roomUsers, addingRoomUser]);
     setAddingRoomUser(null);
+    form.setFieldsValue({
+      username: null,
+    });
   };
 
   return (
     <div className={styles.roomLogInContainer}>
-      <Form name="roomLoginForm" layout="inline" onFinish={onAddUserFormFinish}>
+      <Form
+        name="roomLoginForm"
+        layout="inline"
+        onFinish={onAddUserFormFinish}
+        form={form}
+      >
         <Form.Item
           label="Name"
           name="username"
@@ -32,11 +45,11 @@ function RoomUserAddForm() {
         >
           <Input
             placeholder="본인의 이름을 추가하세요"
-            allowClear={true}
             value={addingRoomUser}
             onChange={(e) => {
               setAddingRoomUser(e.target.value);
             }}
+            allowClear
           />
         </Form.Item>
 
