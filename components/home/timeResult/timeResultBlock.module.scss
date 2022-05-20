@@ -3,35 +3,24 @@
   height: 20px;
   border: 1px solid black;
   transition: all 0.1s;
-}
-
-.timeBlockColored {
-  @include blockSize;
-  opacity: 0.8;
-  background-color: pink;
 
   &:hover {
-    background-color: plum;
+    background-color: #adc6ff;
   }
+}
+// 255,192,203
+.timeBlockColored {
+  @include blockSize;
+  background-color: rgba(255, 192, 203, 1);
 }
 .timeBlockAllUserSelect {
   @include blockSize;
-  opacity: 0.8;
   background-color: green;
-
-  &:hover {
-    background-color: plum;
-  }
 }
 .timeBlockGlass {
   @include blockSize;
-
-  &:hover {
-    background-color: plum;
-  }
 }
 .timeBlockSelected {
   @include blockSize;
-  background-color: pink;
-  opacity: 0.1;
+  background-color: #adc6ff;
 }
