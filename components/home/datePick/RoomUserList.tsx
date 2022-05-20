@@ -1,41 +1,14 @@
 import React from 'react';
 import styles from './RoomUserList.module.scss';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import RoomUser from './RoomUser';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
-import { Button, Popconfirm } from 'antd';
-import timeBlockState, {
-  blockType,
-  timeBlockType,
-} from '../../../atoms/timeAtoms/timeBlockState';
+import PickedUserDeleteButton from './PickedUserDeleteButton';
 
 function RoomUserList() {
-  const [roomUsers, setRoomUsers] = useRecoilState(roomUsersState);
-  const [nowPickUser, setNowPickUser] = useRecoilState(nowPickUserState);
-  const [timeBlocks, setTimeBlocks] = useRecoilState(timeBlockState);
-
-  const onDeleteNameConfirm = () => {
-    const filteredRoomUsers: string[] = roomUsers.filter(
-      (roomUserParam: string) => nowPickUser !== roomUserParam,
-    );
-
-    const newTimeBlocks: timeBlockType[] = timeBlocks.map(
-      (timeBlockParam: timeBlockType) => ({
-        ...timeBlockParam,
-        blocks: timeBlockParam.blocks.map((blockParam: blockType) => ({
-          ...blockParam,
-          usingUsers: blockParam.usingUsers.filter(
-            (userParam) => userParam !== nowPickUser,
-          ),
-        })),
-      }),
-    );
-
-    setRoomUsers(filteredRoomUsers);
-    setTimeBlocks(newTimeBlocks);
-    setNowPickUser(null);
-  };
+  const roomUsers = useRecoilValue(roomUsersState);
+  const nowPickUser = useRecoilValue(nowPickUserState);
 
   return (
     <div className={styles.roomUserListContainer}>
@@ -47,15 +20,7 @@ function RoomUserList() {
         ) : (
           <h3>현재 선택된 이름이 없습니다</h3>
         )}
-        <Popconfirm
-          title="선택된 인원의 이름이 제거됩니다. 하시겠습니까?"
-          onConfirm={onDeleteNameConfirm}
-          okText="제거"
-          cancelText="취소"
-          placement="bottomLeft"
-        >
-          <Button danger>제거</Button>
-        </Popconfirm>
+        {nowPickUser && <PickedUserDeleteButton />}
       </div>
       <ul className={styles.roomUserList}>
         {roomUsers.map((roomUser: string) => (
