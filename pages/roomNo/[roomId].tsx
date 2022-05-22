@@ -3,13 +3,14 @@ import { useRouter } from 'next/router';
 import DatePickContainer from '../../components/home/datePick/DatePickContainer';
 import TimeResultContainer from '../../components/home/timeResult/TimeResultContainer';
 import styles from './roomId.module.scss';
+import RoomTitleAndCopy from '../../components/home/roomHead/roomTitleAndCopy';
 
-const Home: NextPage = () => {
+const roomPage: NextPage = () => {
   const router = useRouter();
-  const { roomName } = router.query;
+  const { roomName, roomId } = router.query;
   return (
     <article className={styles.homeContainer}>
-      <h2>{roomName}</h2>
+      <RoomTitleAndCopy roomName={roomName} roomId={roomId} />
       <div className={styles.timeMainContainer}>
         <DatePickContainer />
         <TimeResultContainer />
@@ -18,4 +19,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default roomPage;
