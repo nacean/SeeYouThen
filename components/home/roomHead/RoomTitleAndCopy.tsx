@@ -14,7 +14,7 @@ function RoomTitleAndCopy({ roomName, roomId }: roomTitleAndCopyType) {
     <div className={styles.roomHeadContainer}>
       <h2>{roomName}</h2>
       <div className={styles.copyUrl}>
-        <Paragraph copyable={{ text: roomId }}>
+        <Paragraph copyable={{ text: roomId as string }}>
           주소를 복사하고 공유하세요
         </Paragraph>
       </div>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import DatePickContainer from '../../components/home/datePick/DatePickContainer';
 import TimeResultContainer from '../../components/home/timeResult/TimeResultContainer';
 import styles from './roomId.module.scss';
-import RoomTitleAndCopy from '../../components/home/roomHead/roomTitleAndCopy';
+import RoomTitleAndCopy from '../../components/home/roomHead/RoomTitleAndCopy';
 
 const roomPage: NextPage = () => {
   const router = useRouter();
