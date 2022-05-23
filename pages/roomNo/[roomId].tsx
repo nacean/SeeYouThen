@@ -4,7 +4,7 @@ import DatePickContainer from '../../components/home/datePick/DatePickContainer'
 import TimeResultContainer from '../../components/home/timeResult/TimeResultContainer';
 import styles from './roomId.module.scss';
 import RoomTitleAndCopy from '../../components/home/roomHead/RoomTitleAndCopy';
-
+import { app, db } from '../../fireStore/fireStoreApp';
 const roomPage: NextPage = () => {
   const router = useRouter();
   const { roomName, roomId } = router.query;
