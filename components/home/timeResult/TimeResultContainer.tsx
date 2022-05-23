@@ -17,15 +17,22 @@ function TimeResultContainer() {
   const makeTimeLine = () => {
     const timeLines: string[] = [];
     timeLines.push('time');
-    for (let i = 0; i <= 48; i++) {
+
+    const TIME_MAX_LENGTH = 48;
+    for (let i = 0; i <= TIME_MAX_LENGTH; i++) {
       timeLines.push(
         moment('00:00', 'HH:mm')
           .add(i * 30, 'minutes')
           .format('HH:mm'),
       );
     }
+
+    let timeLineKeyNum = 0;
+
     return timeLines.map((timeLineParam: string) => (
-      <li className={styles.timeLineList}>{timeLineParam}</li>
+      <li key={timeLineKeyNum++} className={styles.timeLineList}>
+        {timeLineParam}
+      </li>
     ));
   };
 
