@@ -47,6 +47,7 @@ function TimeResultContainer() {
               {timeBlockParam.blocks.map((blockParam: blockType) => {
                 return (
                   <TimeResultBlock
+                    key={`${blockParam.row}${timeBlockParam.col}`}
                     row={blockParam.row}
                     col={timeBlockParam.col}
                     colored={blockParam.usingUsers.indexOf(nowPickUser) !== -1}
