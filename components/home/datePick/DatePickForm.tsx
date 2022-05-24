@@ -1,37 +1,43 @@
 import React from 'react';
 import { Button, DatePicker, Popconfirm } from 'antd';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
 import { Moment } from 'moment';
 import timeBlockState, {
   timeBlockType,
 } from '../../../atoms/timeAtoms/timeBlockState';
 import getBlankTimeBlock from '../../../modules/timeModules/getBlankTimeBlock';
+import roomIdState from '../../../atoms/roomInfo/roomIdState';
+import addRoomInfo from '../../../modules/dbModules/addRoomInfo';
+import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 const { RangePicker } = DatePicker;
 
 function DatePickForm() {
-  const [datePick, setDatePick] =
+  const [pickedDates, setPickedDates] =
     useRecoilState<(Moment | null)[]>(datePickState);
-  const setTimeBlock = useSetRecoilState(timeBlockState);
+  const [timeBlocks, setTimeBlocks] = useRecoilState(timeBlockState);
+  const roomId = useRecoilValue(roomIdState);
+  const roomUsers = useRecoilValue(roomUsersState);
 
   const onDatePickChange = (timeParam: (Moment | null)[] | null) => {
-    setDatePick(timeParam);
+    setPickedDates(timeParam);
   };
 
   const onDataChangeConfirm = () => {
-    if (datePick === null) {
-      setTimeBlock([]);
-      setDatePick([null, null]);
+    if (pickedDates === null) {
+      setTimeBlocks([]);
+      setPickedDates([null, null]);
       return;
     }
 
-    if (datePick[0] === null || datePick[1] === null) {
-      setTimeBlock([]);
-      setDatePick([null, null]);
+    if (pickedDates[0] === null || pickedDates[1] === null) {
+      setTimeBlocks([]);
+      setPickedDates([null, null]);
       return;
     }
-    let startDate: Moment | null = datePick[0];
-    const endDate: Moment | null = datePick[1];
+
+    let startDate: Moment | null = pickedDates[0].clone();
+    const endDate: Moment | null = pickedDates[1].clone();
 
     const newTimeBlock: timeBlockType[] = [];
 
@@ -49,13 +55,14 @@ function DatePickForm() {
 
       startDate = startDate.add(1, 'days');
     }
-    setTimeBlock(newTimeBlock);
+    setTimeBlocks(newTimeBlock);
+    addRoomInfo({ pickedDates, timeBlocks: newTimeBlock, roomUsers, roomId });
   };
 
   return (
     <div>
       <RangePicker
-        value={datePick ? [datePick[0], datePick[1]] : null}
+        value={pickedDates ? [pickedDates[0], pickedDates[1]] : null}
         onCalendarChange={onDatePickChange}
         placement="topRight"
       />

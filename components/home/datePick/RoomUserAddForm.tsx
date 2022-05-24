@@ -1,10 +1,14 @@
 import React from 'react';
 import styles from './RoomUserAddForm.module.scss';
 import { Form, Input, Button } from 'antd';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import addingRoomUserState from '../../../atoms/roomUserAtoms/addingRoomUserState';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
+import addRoomInfo from '../../../modules/dbModules/addRoomInfo';
+import timeBlockState from '../../../atoms/timeAtoms/timeBlockState';
+import roomIdState from '../../../atoms/roomInfo/roomIdState';
+import datePickState from '../../../atoms/timeAtoms/datePickState';
 
 function RoomUserAddForm() {
   const [addingRoomUser, setAddingRoomUser] =
@@ -12,6 +16,9 @@ function RoomUserAddForm() {
   const [roomUsers, setRoomUsers] = useRecoilState(roomUsersState);
   const setNowPickUser = useSetRecoilState(nowPickUserState);
   const [form] = Form.useForm();
+  const pickedDates = useRecoilValue(datePickState);
+  const timeBlocks = useRecoilValue(timeBlockState);
+  const roomId = useRecoilValue(roomIdState);
 
   const onAddUserFormFinish = () => {
     if (addingRoomUser === null || addingRoomUser === '') {
@@ -23,12 +30,14 @@ function RoomUserAddForm() {
       alert('동일한 이름이 존재합니다!');
       return;
     }
-    setRoomUsers([...roomUsers, addingRoomUser]);
+    const newRoomUsers: string[] = [...roomUsers, addingRoomUser];
+    setRoomUsers(newRoomUsers);
     setNowPickUser(addingRoomUser);
     setAddingRoomUser(null);
     form.setFieldsValue({
       username: null,
     });
+    addRoomInfo({ pickedDates, timeBlocks, roomUsers: newRoomUsers, roomId });
   };
 
   return (

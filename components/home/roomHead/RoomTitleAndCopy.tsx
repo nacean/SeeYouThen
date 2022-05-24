@@ -1,15 +1,15 @@
 import React from 'react';
 import { Typography } from 'antd';
 import styles from './RoomTitleAndCopy.module.scss';
+import { useRecoilValue } from 'recoil';
+import roomIdState from '../../../atoms/roomInfo/roomIdState';
+import roomNameState from '../../../atoms/roomInfo/roomNameState';
 
 const { Paragraph } = Typography;
 
-interface roomTitleAndCopyType {
-  roomName: string | string[];
-  roomId: string | string[];
-}
-
-function RoomTitleAndCopy({ roomName, roomId }: roomTitleAndCopyType) {
+function RoomTitleAndCopy() {
+  const roomName = useRecoilValue(roomNameState);
+  const roomId = useRecoilValue(roomIdState);
   return (
     <div className={styles.roomHeadContainer}>
       <h2>{roomName}</h2>

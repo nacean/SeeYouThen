@@ -1,13 +1,18 @@
 import { Popover } from 'antd';
+import { doc, setDoc } from 'firebase/firestore/lite';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
+import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import clickedTimeBlockState from '../../../atoms/timeAtoms/clickedTimeBlockState';
+import datePickState from '../../../atoms/timeAtoms/datePickState';
 import mouseOverTimeBlockState from '../../../atoms/timeAtoms/mouseOverTimeBlockState';
 import timeBlockState, {
   blockType,
   timeBlockType,
 } from '../../../atoms/timeAtoms/timeBlockState';
+import { db } from '../../../fireStore/fireStoreApp';
+import addRoomInfo from '../../../modules/dbModules/addRoomInfo';
 import getRowCol from '../../../modules/timeModules/getRowCol';
 import styles from './timeResultBlock.module.scss';
 
@@ -17,6 +22,7 @@ interface TimeResultBlockType {
   colored: Boolean;
   allUserSelect: Boolean;
   blockUsingUsers: string[];
+  roomId: string | string[];
 }
 
 function TimeResultBlock({
@@ -25,6 +31,7 @@ function TimeResultBlock({
   colored,
   allUserSelect,
   blockUsingUsers,
+  roomId,
 }: TimeResultBlockType) {
   const [clickedTimeBlock, setClickedTimeBlock] = useRecoilState(
     clickedTimeBlockState,
@@ -34,8 +41,26 @@ function TimeResultBlock({
     mouseOverTimeBlockState,
   );
   const nowPickUser = useRecoilValue(nowPickUserState);
+  const roomUsers = useRecoilValue(roomUsersState);
+  const pickedDates = useRecoilValue(datePickState);
 
-  const onClickTimeBlock = () => {
+  const userPutInOrNot = (rowBlockParam: blockType): string[] => {
+    const nowUserIn = rowBlockParam.usingUsers.indexOf(nowPickUser) !== -1;
+
+    if (clickedTimeBlock.clickIsColored) {
+      return nowUserIn
+        ? rowBlockParam.usingUsers.filter(
+            (userParam: string) => userParam !== nowPickUser,
+          )
+        : rowBlockParam.usingUsers;
+    } else {
+      return nowUserIn
+        ? rowBlockParam.usingUsers
+        : [...rowBlockParam.usingUsers, nowPickUser];
+    }
+  };
+
+  const onClickTimeBlock = async () => {
     if (nowPickUser === null) {
       alert('유저를 먼저 선택해주세요');
       return;
@@ -51,22 +76,6 @@ function TimeResultBlock({
       row,
       clickedTimeBlock.row,
     );
-
-    const userPutInOrNot = (rowBlockParam: blockType): string[] => {
-      const nowUserIn = rowBlockParam.usingUsers.indexOf(nowPickUser) !== -1;
-
-      if (clickedTimeBlock.clickIsColored) {
-        return nowUserIn
-          ? rowBlockParam.usingUsers.filter(
-              (userParam: string) => userParam !== nowPickUser,
-            )
-          : rowBlockParam.usingUsers;
-      } else {
-        return nowUserIn
-          ? rowBlockParam.usingUsers
-          : [...rowBlockParam.usingUsers, nowPickUser];
-      }
-    };
 
     const newTimeBlocks: timeBlockType[] = timeBlocks.map((colBlockParam) => {
       if (colBlockParam.col >= left && colBlockParam.col <= right) {
@@ -93,6 +102,7 @@ function TimeResultBlock({
     });
 
     setTimeBlocks(newTimeBlocks);
+    addRoomInfo({ pickedDates, timeBlocks: newTimeBlocks, roomUsers, roomId });
     setClickedTimeBlock(null);
     setMouseOverTimeBlock(null);
   };
