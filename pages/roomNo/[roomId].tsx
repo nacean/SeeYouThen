@@ -1,10 +1,10 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import DatePickContainer from '../../components/home/datePick/DatePickContainer';
 import TimeResultContainer from '../../components/home/timeResult/TimeResultContainer';
 import styles from './roomId.module.scss';
 import RoomTitleAndCopy from '../../components/home/roomHead/RoomTitleAndCopy';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import roomNameState from '../../atoms/roomInfo/roomNameState';
 import roomIdState from '../../atoms/roomInfo/roomIdState';
 import initializeRoomInfo from '../../modules/dbModules/initializeRoomInfo';
@@ -14,6 +14,7 @@ import datePickState from '../../atoms/timeAtoms/datePickState';
 import timeBlockState from '../../atoms/timeAtoms/timeBlockState';
 import roomUsersState from '../../atoms/roomUserAtoms/roomUsersState';
 import moment from 'moment';
+import nowPickUserState from '../../atoms/roomUserAtoms/nowPickUserState';
 
 const RoomPage: NextPage = () => {
   const setRoomName = useSetRecoilState(roomNameState);
@@ -21,6 +22,13 @@ const RoomPage: NextPage = () => {
   const setDatePick = useSetRecoilState(datePickState);
   const setTimeBlock = useSetRecoilState(timeBlockState);
   const setRoomUsers = useSetRecoilState(roomUsersState);
+
+  //resetState
+  const resetUsers = useResetRecoilState(roomUsersState);
+  const resetDates = useResetRecoilState(datePickState);
+  const resetTimeBlocks = useResetRecoilState(timeBlockState);
+  const resetNowPickUser = useResetRecoilState(nowPickUserState);
+
   const router = useRouter();
 
   const getRoomInfo = async () => {
@@ -41,6 +49,13 @@ const RoomPage: NextPage = () => {
 
   useEffect(() => {
     if (router.isReady) getRoomInfo();
+
+    return () => {
+      resetUsers();
+      resetDates();
+      resetTimeBlocks();
+      resetNowPickUser();
+    };
   }, [router.isReady]);
 
   return (
