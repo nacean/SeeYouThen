@@ -2,6 +2,7 @@ import { Popover } from 'antd';
 import { doc, setDoc } from 'firebase/firestore/lite';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import switchAllSelectValueState from '../../../atoms/roomOptionAtoms/switchAllSelectValueState';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import clickedTimeBlockState from '../../../atoms/timeAtoms/clickedTimeBlockState';
@@ -43,6 +44,7 @@ function TimeResultBlock({
   const nowPickUser = useRecoilValue(nowPickUserState);
   const roomUsers = useRecoilValue(roomUsersState);
   const pickedDates = useRecoilValue(datePickState);
+  const switchAllSelectValue = useRecoilValue(switchAllSelectValueState);
 
   const userPutInOrNot = (rowBlockParam: blockType): string[] => {
     const nowUserIn = rowBlockParam.usingUsers.indexOf(nowPickUser) !== -1;
@@ -130,7 +132,7 @@ function TimeResultBlock({
   const blockColor = () => {
     if (checkBlockShouldColored()) return styles.timeBlockSelected;
     else if (allUserSelect) return styles.timeBlockAllUserSelect;
-    else if (colored) return styles.timeBlockColored;
+    else if (colored && !switchAllSelectValue) return styles.timeBlockColored;
     else return styles.timeBlockGlass;
   };
 

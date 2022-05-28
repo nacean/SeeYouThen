@@ -8,6 +8,7 @@ import timeBlockState, {
   blockType,
   timeBlockType,
 } from '../../../atoms/timeAtoms/timeBlockState';
+import SwitchAllSelect from './SwitchAllSelect';
 import TimeResultBlock from './TimeResultBlock';
 import styles from './TimeResultContainer.module.scss';
 
@@ -41,6 +42,7 @@ function TimeResultContainer() {
 
   return (
     <section className={styles.timeResultContainer}>
+      <SwitchAllSelect />
       <div className={styles.timePerDateBox}>
         <ul>{makeTimeLine()}</ul>
         {timeBlocks.map((timeBlockParam: timeBlockType) => {
