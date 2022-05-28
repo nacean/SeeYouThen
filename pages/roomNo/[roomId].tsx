@@ -15,6 +15,7 @@ import timeBlockState from '../../atoms/timeAtoms/timeBlockState';
 import roomUsersState from '../../atoms/roomUserAtoms/roomUsersState';
 import moment from 'moment';
 import nowPickUserState from '../../atoms/roomUserAtoms/nowPickUserState';
+import switchAllSelectValueState from '../../atoms/roomOptionAtoms/switchAllSelectValueState';
 
 const RoomPage: NextPage = () => {
   const setRoomName = useSetRecoilState(roomNameState);
@@ -28,6 +29,9 @@ const RoomPage: NextPage = () => {
   const resetDates = useResetRecoilState(datePickState);
   const resetTimeBlocks = useResetRecoilState(timeBlockState);
   const resetNowPickUser = useResetRecoilState(nowPickUserState);
+  const resetSwitchAllSelectValue = useResetRecoilState(
+    switchAllSelectValueState,
+  );
 
   const router = useRouter();
 
@@ -55,6 +59,7 @@ const RoomPage: NextPage = () => {
       resetDates();
       resetTimeBlocks();
       resetNowPickUser();
+      resetSwitchAllSelectValue();
     };
   }, [router.isReady]);
 
