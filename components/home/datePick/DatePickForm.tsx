@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, DatePicker, Popconfirm } from 'antd';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
 import { Moment } from 'moment';
 import timeBlockState, {
@@ -10,13 +10,15 @@ import getBlankTimeBlock from '../../../modules/timeModules/getBlankTimeBlock';
 import roomIdState from '../../../atoms/roomInfo/roomIdState';
 import addRoomInfo from '../../../modules/dbModules/addRoomInfo';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
+import roomNameState from '../../../atoms/roomInfo/roomNameState';
 const { RangePicker } = DatePicker;
 
 function DatePickForm() {
   const [pickedDates, setPickedDates] =
     useRecoilState<(Moment | null)[]>(datePickState);
-  const [timeBlocks, setTimeBlocks] = useRecoilState(timeBlockState);
+  const setTimeBlocks = useSetRecoilState(timeBlockState);
   const roomId = useRecoilValue(roomIdState);
+  const roomName = useRecoilValue(roomNameState);
   const roomUsers = useRecoilValue(roomUsersState);
 
   const onDatePickChange = (timeParam: (Moment | null)[] | null) => {
@@ -56,7 +58,13 @@ function DatePickForm() {
       startDate = startDate.add(1, 'days');
     }
     setTimeBlocks(newTimeBlock);
-    addRoomInfo({ pickedDates, timeBlocks: newTimeBlock, roomUsers, roomId });
+    addRoomInfo({
+      pickedDates,
+      timeBlocks: newTimeBlock,
+      roomUsers,
+      roomId,
+      roomName,
+    });
   };
 
   return (

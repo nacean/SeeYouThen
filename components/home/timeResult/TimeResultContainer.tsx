@@ -61,7 +61,6 @@ function TimeResultContainer() {
                       roomUsers.length === blockParam.usingUsers.length
                     }
                     blockUsingUsers={blockParam.usingUsers}
-                    roomId={roomId}
                   />
                 );
               })}

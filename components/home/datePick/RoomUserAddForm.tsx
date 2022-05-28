@@ -9,6 +9,7 @@ import addRoomInfo from '../../../modules/dbModules/addRoomInfo';
 import timeBlockState from '../../../atoms/timeAtoms/timeBlockState';
 import roomIdState from '../../../atoms/roomInfo/roomIdState';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
+import roomNameState from '../../../atoms/roomInfo/roomNameState';
 
 function RoomUserAddForm() {
   const [addingRoomUser, setAddingRoomUser] =
@@ -19,6 +20,7 @@ function RoomUserAddForm() {
   const pickedDates = useRecoilValue(datePickState);
   const timeBlocks = useRecoilValue(timeBlockState);
   const roomId = useRecoilValue(roomIdState);
+  const roomName = useRecoilValue(roomNameState);
 
   const onAddUserFormFinish = () => {
     if (addingRoomUser === null || addingRoomUser === '') {
@@ -37,7 +39,13 @@ function RoomUserAddForm() {
     form.setFieldsValue({
       username: null,
     });
-    addRoomInfo({ pickedDates, timeBlocks, roomUsers: newRoomUsers, roomId });
+    addRoomInfo({
+      pickedDates,
+      timeBlocks,
+      roomUsers: newRoomUsers,
+      roomId,
+      roomName,
+    });
   };
 
   return (

@@ -1,6 +1,7 @@
 import { Button, Popconfirm } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import roomIdState from '../../../atoms/roomInfo/roomIdState';
+import roomNameState from '../../../atoms/roomInfo/roomNameState';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
@@ -16,6 +17,7 @@ function PickedUserDeleteButton() {
   const [timeBlocks, setTimeBlocks] = useRecoilState(timeBlockState);
   const pickedDates = useRecoilValue(datePickState);
   const roomId = useRecoilValue(roomIdState);
+  const roomName = useRecoilValue(roomNameState);
   const onDeleteNameConfirm = () => {
     const filteredRoomUsers: string[] = roomUsers.filter(
       (roomUserParam: string) => nowPickUser !== roomUserParam,
@@ -41,6 +43,7 @@ function PickedUserDeleteButton() {
       timeBlocks: newTimeBlocks,
       roomUsers: filteredRoomUsers,
       roomId,
+      roomName,
     });
   };
 
