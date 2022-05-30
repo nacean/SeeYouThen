@@ -17,6 +17,11 @@ function Header() {
               <a>방만들기</a>
             </Link>
           </li>
+          <li>
+            <Link href="/ManualPage">
+              <a>사용방법</a>
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

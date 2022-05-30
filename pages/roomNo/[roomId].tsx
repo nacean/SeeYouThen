@@ -16,6 +16,7 @@ import roomUsersState from '../../atoms/roomUserAtoms/roomUsersState';
 import moment from 'moment';
 import nowPickUserState from '../../atoms/roomUserAtoms/nowPickUserState';
 import switchAllSelectValueState from '../../atoms/roomOptionAtoms/switchAllSelectValueState';
+import checkRoomNameId from '../../modules/dbModules/checkRoomNameId';
 
 const RoomPage: NextPage = () => {
   const setRoomName = useSetRecoilState(roomNameState);
@@ -51,8 +52,24 @@ const RoomPage: NextPage = () => {
     setRoomId(roomId as string);
   };
 
+  const roomCheck = async () => {
+    const { roomName, roomId } = router.query;
+    const roomIsValid = await checkRoomNameId(
+      roomName as string,
+      roomId as string,
+    );
+
+    if (!roomIsValid) {
+      alert('잘못된 Url 접근입니다. Home으로 이동합니다.');
+      router.push('/');
+    }
+  };
+
   useEffect(() => {
-    if (router.isReady) getRoomInfo();
+    if (router.isReady) {
+      roomCheck();
+      getRoomInfo();
+    }
 
     return () => {
       resetUsers();
