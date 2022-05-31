@@ -1,25 +1,24 @@
-import { useMediaQuery } from 'react-responsive'
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
-interface responsiveType {
-    children : React.FC;
+export function useIsTablet() {
+  const [isTablet, setIsTablet] = useState(false);
+  const tablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
+
+  useEffect(() => {
+    setIsTablet(tablet);
+  }, [tablet]);
+
+  return isTablet;
 }
 
-export const Desktop = ({ children } : responsiveType) => {
-  const isDesktop = useMediaQuery({ minWidth: 992 })
-  return isDesktop ? children : null
-}
+export function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  const mobile = useMediaQuery({ maxWidth: 767 });
 
-export const Tablet = ({ children } :responsiveType) => {
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 })
-  return isTablet ? children : null
-}
+  useEffect(() => {
+    setIsMobile(mobile);
+  }, [mobile]);
 
-export const Mobile = ({ children } :responsiveType) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  return isMobile ? children : null
-}
-
-export const Default = ({ children } : responsiveType) => {
-  const isNotMobile = useMediaQuery({ minWidth: 768 })
-  return isNotMobile ? children : null
+  return isMobile;
 }
