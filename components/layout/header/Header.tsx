@@ -1,29 +1,31 @@
-import Link from 'next/link';
-import React from 'react';
-import style from './Header.module.scss';
+import React, { useState } from 'react';
+import { useIsMobile } from '../../responsive/responsiveCollection';
+import styles from './Header.module.scss';
+import MenuDropDownBtn from './MenuDropDownBtn';
+import NavBar from './NavBar';
+
 function Header() {
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [dropMenu, setDropMenu] = useState<boolean>(false);
+  const isMobile = useIsMobile();
+
   return (
-    <header className={style.headerContainer}>
-      <h1 className={style.mainTitle}>SeeYouThen</h1>
-      <nav className={style.navBar}>
-        <ul className={style.navList}>
-          <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/MakeRoomPage">
-              <a>방만들기</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/ManualPage">
-              <a>사용방법</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+    <header className={styles.headerContainer}>
+      <h1 className={styles.mainTitle}>SeeYouThen</h1>
+      {(!isMobile || showMenu) && (
+        <NavBar
+          dropMenu={dropMenu}
+          setShowMenu={setShowMenu}
+          setDropMenu={setDropMenu}
+        />
+      )}
+      {isMobile && (
+        <MenuDropDownBtn
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+          setDropMenu={setDropMenu}
+        />
+      )}
     </header>
   );
 }
