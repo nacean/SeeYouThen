@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
+import { useIsMobile } from '../responsive/responsiveCollection';
 
 interface submitType {
   roomName: string;
@@ -9,13 +10,15 @@ interface submitType {
 
 function MakeRoomForm() {
   const roomRouter = useRouter();
+  const isMobile = useIsMobile();
+
   const onFinish = (submitParam: submitType) => {
     const uuid = uuidv4();
     const { roomName } = submitParam;
     roomRouter.push(`/roomNo/${uuid}?roomName=${roomName}`);
   };
   return (
-    <Form layout="inline" onFinish={onFinish}>
+    <Form layout={isMobile ? 'horizontal' : 'inline'} onFinish={onFinish}>
       <Form.Item
         label="roomName"
         name="roomName"
