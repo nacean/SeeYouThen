@@ -19,7 +19,7 @@ function MenuDropDownBtn({
       setDropMenu(false);
       setTimeout(() => {
         setShowMenu(false);
-      }, 300);
+      }, 290);
     } else {
       setDropMenu(true);
       setShowMenu(true);
