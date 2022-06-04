@@ -1,3 +1,5 @@
+@import '../../../styles/responsiveUtils.scss';
+
 .roomHeadContainer {
   width: 100%;
   height: 80px;
@@ -17,5 +19,17 @@
     position: absolute;
     top: 30px;
     right: 20px;
+  }
+}
+
+@include mobile {
+  .roomHeadContainer {
+    flex-direction: column;
+    .copyUrl {
+      position: inherit;
+      top: auto;
+      right: auto;
+      text-align: center;
+    }
   }
 }

@@ -1,3 +1,5 @@
+@import '../../../styles/responsiveUtils.scss';
+
 .datePickContainer {
   width: 30%;
   height: 100%;
@@ -9,5 +11,12 @@
   h2 {
     font-size: 20px;
     padding: 5px 0;
+  }
+}
+
+@include mobile {
+  .datePickContainer {
+    width: 100%;
+    margin-top: 20px;
   }
 }

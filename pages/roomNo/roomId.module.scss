@@ -1,3 +1,5 @@
+@import '../../styles/responsiveUtils.scss';
+
 .homeContainer {
   width: 100%;
   display: flex;
@@ -9,5 +11,13 @@
     height: 1030px;
     display: flex;
     justify-content: space-between;
+  }
+}
+
+@include mobile {
+  .homeContainer {
+    .timeMainContainer {
+      flex-direction: column;
+    }
   }
 }
