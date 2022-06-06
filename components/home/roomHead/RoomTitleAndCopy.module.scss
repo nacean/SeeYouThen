@@ -25,7 +25,8 @@
 @include mobile {
   .roomHeadContainer {
     flex-direction: column;
-    height: 70px;
+    height: auto;
+    text-align: center;
     h2 {
       padding: 10px 0;
     }
@@ -34,6 +35,7 @@
       top: auto;
       right: auto;
       text-align: center;
+      height: 15px;
     }
   }
 }
