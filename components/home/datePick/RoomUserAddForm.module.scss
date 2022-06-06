@@ -2,10 +2,12 @@
 
 .roomLogInContainer {
   margin-top: 200px;
+  padding: 20px 0;
 }
 
 @include mobile {
   .roomLogInContainer {
+    padding: 0;
     margin-top: 0;
   }
 }
