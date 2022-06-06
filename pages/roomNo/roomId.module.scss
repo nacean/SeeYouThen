@@ -17,6 +17,7 @@
 @include mobile {
   .homeContainer {
     .timeMainContainer {
+      height: auto;
       flex-direction: column;
     }
   }

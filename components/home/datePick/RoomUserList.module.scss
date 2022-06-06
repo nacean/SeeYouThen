@@ -1,3 +1,5 @@
+@import '../../../styles/responsiveUtils.scss';
+
 .roomUserListContainer {
   width: 100%;
   display: flex;
@@ -27,5 +29,17 @@
     display: flex;
     padding: 20px;
     flex-wrap: wrap;
+  }
+}
+
+@include mobile {
+  .roomUserListContainer {
+    margin-top: 10px;
+
+    .roomUserList {
+      width: 44.8%;
+      margin: auto 0;
+      padding: 5px 0;
+    }
   }
 }

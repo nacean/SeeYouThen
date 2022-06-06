@@ -25,6 +25,10 @@
 @include mobile {
   .roomHeadContainer {
     flex-direction: column;
+    height: 70px;
+    h2 {
+      padding: 10px 0;
+    }
     .copyUrl {
       position: inherit;
       top: auto;

@@ -1,3 +1,5 @@
+@import '../../../styles/responsiveUtils.scss';
+
 .timeResultContainer {
   position: relative;
   width: 70%;
@@ -36,5 +38,12 @@
       width: 50px;
       height: 20px;
     }
+  }
+}
+
+@include mobile {
+  .timeResultContainer {
+    width: 100%;
+    overflow-x: scroll;
   }
 }
