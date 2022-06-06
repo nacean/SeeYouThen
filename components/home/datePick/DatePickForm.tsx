@@ -11,6 +11,7 @@ import roomIdState from '../../../atoms/roomInfo/roomIdState';
 import addRoomInfo from '../../../modules/dbModules/addRoomInfo';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import roomNameState from '../../../atoms/roomInfo/roomNameState';
+import styles from './DatePickForm.module.scss';
 const { RangePicker } = DatePicker;
 
 function DatePickForm() {
@@ -68,7 +69,7 @@ function DatePickForm() {
   };
 
   return (
-    <div>
+    <div className={styles.chooseDate}>
       <RangePicker
         value={pickedDates ? [pickedDates[0], pickedDates[1]] : null}
         onCalendarChange={onDatePickChange}

@@ -1,3 +1,12 @@
+@import '../../../styles/responsiveUtils.scss';
+
 .roomLogInContainer {
   margin-top: 200px;
+}
+
+@include mobile {
+  .roomLogInContainer {
+    height: 50px;
+    margin-top: 10px;
+  }
 }

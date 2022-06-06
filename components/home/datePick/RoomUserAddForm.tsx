@@ -10,8 +10,10 @@ import timeBlockState from '../../../atoms/timeAtoms/timeBlockState';
 import roomIdState from '../../../atoms/roomInfo/roomIdState';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
 import roomNameState from '../../../atoms/roomInfo/roomNameState';
+import { useIsMobile } from '../../responsive/responsiveCollection';
 
 function RoomUserAddForm() {
+  const isMobile = useIsMobile();
   const [addingRoomUser, setAddingRoomUser] =
     useRecoilState(addingRoomUserState);
   const [roomUsers, setRoomUsers] = useRecoilState(roomUsersState);
@@ -52,7 +54,7 @@ function RoomUserAddForm() {
     <div className={styles.roomLogInContainer}>
       <Form
         name="roomLoginForm"
-        layout="inline"
+        layout={isMobile ? 'horizontal' : 'inline'}
         onFinish={onAddUserFormFinish}
         form={form}
       >
@@ -74,7 +76,7 @@ function RoomUserAddForm() {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" block={isMobile}>
             추가
           </Button>
         </Form.Item>
