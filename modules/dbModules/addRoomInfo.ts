@@ -17,12 +17,16 @@ async function addRoomInfo({
   roomId,
   roomName,
 }: addRoomInfoType) {
+  const newPickedDates =
+    pickedDates[0] === null || pickedDates[1] === null
+      ? [null, null]
+      : [
+          pickedDates[0].format('YYYY-MM-DD'),
+          pickedDates[1].format('YYYY-MM-DD'),
+        ];
   await setDoc(doc(db, 'roomDB', roomId as string), {
     roomName: roomName as string,
-    pickedDates: [
-      pickedDates[0].format('YYYY-MM-DD'),
-      pickedDates[1].format('YYYY-MM-DD'),
-    ],
+    pickedDates: newPickedDates,
     resultBlocks: timeBlocks,
     roomUsers: roomUsers,
   });
