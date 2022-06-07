@@ -6,36 +6,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: scroll;
   text-align: center;
-  overflow-x: hidden;
 
-  .timeLineList {
-    position: relative;
-    top: -5px;
-    width: 50px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-  }
-
-  .timePerDateBox {
+  .timeLineAndBlocks {
     margin-top: 10px;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
-  }
-  .timeBlock {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    h3 {
-      width: 50px;
-      height: 20px;
+    .alltimeBlocks {
+      display: flex;
+      justify-content: center;
+      overflow-x: scroll;
+
+      .timeBlock {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+          width: 50px;
+          height: 20px;
+        }
+      }
     }
   }
 }
@@ -43,6 +37,19 @@
 @include mobile {
   .timeResultContainer {
     width: 100%;
-    overflow-x: scroll;
+
+    .timeLineAndBlocks {
+      .alltimeBlocks {
+        justify-content: left;
+
+        .timeBlock {
+          h3 {
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+          }
+        }
+      }
+    }
   }
 }
