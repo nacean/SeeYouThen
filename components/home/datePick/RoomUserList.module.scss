@@ -24,11 +24,15 @@
     align-items: center;
   }
 
-  .roomUserList {
-    width: 170px;
+  .roomUserBox {
     display: flex;
-    padding: 20px;
-    flex-wrap: wrap;
+    justify-content: center;
+    width: 130px;
+    padding: 20px 0;
+    .roomUserList {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 }
 
@@ -36,10 +40,10 @@
   .roomUserListContainer {
     margin-top: 10px;
 
-    .roomUserList {
-      width: 44.8%;
-      margin: auto 0;
-      padding: 5px 0;
+    .roomUserBox {
+      padding: 10px 0;
+      .roomUserList {
+      }
     }
   }
 }

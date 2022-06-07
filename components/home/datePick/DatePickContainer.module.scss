@@ -1,6 +1,8 @@
 @import '../../../styles/responsiveUtils.scss';
 
 .datePickContainer {
+  top: 20%;
+  position: sticky;
   width: 30%;
   height: 100%;
   border: 1px solid #000000;
@@ -19,6 +21,7 @@
 
 @include mobile {
   .datePickContainer {
+    position: inherit;
     width: 100%;
     height: auto;
     margin: 10px 0;

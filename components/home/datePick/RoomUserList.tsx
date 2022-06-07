@@ -22,11 +22,13 @@ function RoomUserList() {
         )}
         {nowPickUser && <PickedUserDeleteButton />}
       </div>
-      <ul className={styles.roomUserList}>
-        {roomUsers.map((roomUser: string) => (
-          <RoomUser username={roomUser} isPicked={roomUser === nowPickUser} />
-        ))}
-      </ul>
+      <div className={styles.roomUserBox}>
+        <ul className={styles.roomUserList}>
+          {roomUsers.map((roomUser: string) => (
+            <RoomUser username={roomUser} isPicked={roomUser === nowPickUser} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
