@@ -1,8 +1,4 @@
-@import '../../../styles/responsiveUtils.scss';
-
-@include mobile {
-  .chooseDate {
-    display: flex;
-    flex-direction: column;
-  }
+.chooseDate {
+  display: flex;
+  flex-direction: column;
 }
