@@ -11,6 +11,7 @@ import roomIdState from '../../../atoms/roomInfo/roomIdState';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
 import roomNameState from '../../../atoms/roomInfo/roomNameState';
 import { useIsMobile } from '../../responsive/responsiveCollection';
+import nowPickTimeState from '../../../atoms/timeAtoms/nowPickTimeState';
 
 function RoomUserAddForm() {
   const isMobile = useIsMobile();
@@ -20,6 +21,7 @@ function RoomUserAddForm() {
   const setNowPickUser = useSetRecoilState(nowPickUserState);
   const [form] = Form.useForm();
   const pickedDates = useRecoilValue(datePickState);
+  const pickedTimes = useRecoilValue(nowPickTimeState);
   const timeBlocks = useRecoilValue(timeBlockState);
   const roomId = useRecoilValue(roomIdState);
   const roomName = useRecoilValue(roomNameState);
@@ -43,6 +45,7 @@ function RoomUserAddForm() {
     });
     addRoomInfo({
       pickedDates,
+      pickedTimes,
       timeBlocks,
       roomUsers: newRoomUsers,
       roomId,

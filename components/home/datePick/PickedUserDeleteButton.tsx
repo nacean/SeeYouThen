@@ -5,6 +5,7 @@ import roomNameState from '../../../atoms/roomInfo/roomNameState';
 import nowPickUserState from '../../../atoms/roomUserAtoms/nowPickUserState';
 import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
+import nowPickTimeState from '../../../atoms/timeAtoms/nowPickTimeState';
 import timeBlockState, {
   timeBlockType,
   blockType,
@@ -16,6 +17,7 @@ function PickedUserDeleteButton() {
   const [nowPickUser, setNowPickUser] = useRecoilState(nowPickUserState);
   const [timeBlocks, setTimeBlocks] = useRecoilState(timeBlockState);
   const pickedDates = useRecoilValue(datePickState);
+  const pickedTimes = useRecoilValue(nowPickTimeState);
   const roomId = useRecoilValue(roomIdState);
   const roomName = useRecoilValue(roomNameState);
   const onDeleteNameConfirm = () => {
@@ -40,6 +42,7 @@ function PickedUserDeleteButton() {
     setNowPickUser(null);
     addRoomInfo({
       pickedDates,
+      pickedTimes,
       timeBlocks: newTimeBlocks,
       roomUsers: filteredRoomUsers,
       roomId,

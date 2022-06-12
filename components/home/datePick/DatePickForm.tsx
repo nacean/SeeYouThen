@@ -74,6 +74,7 @@ function DatePickForm() {
     setTimeBlocks(newTimeBlock);
     addRoomInfo({
       pickedDates,
+      pickedTimes,
       timeBlocks: newTimeBlock,
       roomUsers,
       roomId,

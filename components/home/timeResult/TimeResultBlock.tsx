@@ -9,6 +9,7 @@ import roomUsersState from '../../../atoms/roomUserAtoms/roomUsersState';
 import clickedTimeBlockState from '../../../atoms/timeAtoms/clickedTimeBlockState';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
 import mouseOverTimeBlockState from '../../../atoms/timeAtoms/mouseOverTimeBlockState';
+import nowPickTimeState from '../../../atoms/timeAtoms/nowPickTimeState';
 import timeBlockState, {
   blockType,
   timeBlockType,
@@ -42,6 +43,7 @@ function TimeResultBlock({
   const nowPickUser = useRecoilValue(nowPickUserState);
   const roomUsers = useRecoilValue(roomUsersState);
   const pickedDates = useRecoilValue(datePickState);
+  const pickedTimes = useRecoilValue(nowPickTimeState);
   const switchAllSelectValue = useRecoilValue(switchAllSelectValueState);
   const roomName = useRecoilValue(roomNameState);
   const roomId = useRecoilValue(roomIdState);
@@ -106,6 +108,7 @@ function TimeResultBlock({
     setTimeBlocks(newTimeBlocks);
     addRoomInfo({
       pickedDates,
+      pickedTimes,
       timeBlocks: newTimeBlocks,
       roomUsers,
       roomId,
