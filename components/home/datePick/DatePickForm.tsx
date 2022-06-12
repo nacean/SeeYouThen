@@ -59,7 +59,10 @@ function DatePickForm() {
       const tempBlock: timeBlockType = {
         date: startDate.format('MM-DD'),
         col: tempCol++,
-        blocks: getBlankTimeBlock(),
+        blocks: getBlankTimeBlock(
+          pickedTimes[0].clone(),
+          pickedTimes[1].clone(),
+        ),
       };
 
       newTimeBlock.push(tempBlock);
