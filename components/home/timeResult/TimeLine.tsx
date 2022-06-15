@@ -1,19 +1,26 @@
 import moment from 'moment';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+import nowPickTimeState from '../../../atoms/timeAtoms/nowPickTimeState';
 import styles from './TimeLine.module.scss';
 
 function TimeLine() {
+  const pickedTimes = useRecoilValue(nowPickTimeState);
   const makeTimeLine = () => {
-    const timeLines: string[] = [];
-    timeLines.push('time');
+    if (!pickedTimes[0] || !pickedTimes[1]) return;
 
-    const TIME_MAX_LENGTH = 48;
-    for (let i = 0; i <= TIME_MAX_LENGTH; i++) {
-      timeLines.push(
-        moment('00:00', 'HH:mm')
-          .add(i * 30, 'minutes')
-          .format('HH:mm'),
-      );
+    let startTime = pickedTimes[0].clone();
+    const endTime = pickedTimes[1].clone();
+
+    const timeLines: string[] = [];
+
+    timeLines.push('time');
+    while (1) {
+      timeLines.push(startTime.format('HH:mm'));
+
+      if (startTime.format('HH:mm') === endTime.format('HH:mm')) break;
+
+      startTime = startTime.add(30, 'm');
     }
 
     let timeLineKeyNum = 0;

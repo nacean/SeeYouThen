@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, DatePicker, Popconfirm, TimePicker } from 'antd';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import timeBlockState, {
   timeBlockType,
 } from '../../../atoms/timeAtoms/timeBlockState';
@@ -91,9 +91,9 @@ function DatePickForm() {
       />
       <TimePicker.RangePicker
         value={pickedTimes ? [pickedTimes[0], pickedTimes[1]] : null}
+        placement="bottomRight"
         minuteStep={30}
         format="HH:mm"
-        placement="bottomRight"
         onChange={onTimePickChange}
       />
       <Popconfirm

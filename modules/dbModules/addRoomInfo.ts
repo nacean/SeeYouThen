@@ -30,7 +30,7 @@ async function addRoomInfo({
   const newPickedTimes =
     pickedTimes[0] === null || pickedTimes[1] === null
       ? [null, null]
-      : [pickedTimes[0].format('hh:mm'), pickedTimes[1].format('hh:mm')];
+      : [pickedTimes[0].format('HH:mm'), pickedTimes[1].format('HH:mm')];
   await setDoc(doc(db, 'roomDB', roomId as string), {
     roomName: roomName as string,
     pickedDates: newPickedDates,
