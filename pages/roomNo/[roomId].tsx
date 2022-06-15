@@ -17,6 +17,7 @@ import moment from 'moment';
 import nowPickUserState from '../../atoms/roomUserAtoms/nowPickUserState';
 import switchAllSelectValueState from '../../atoms/roomOptionAtoms/switchAllSelectValueState';
 import checkRoomNameId from '../../modules/dbModules/checkRoomNameId';
+import nowPickTimeState from '../../atoms/timeAtoms/nowPickTimeState';
 
 const RoomPage: NextPage = () => {
   const setRoomName = useSetRecoilState(roomNameState);
@@ -24,6 +25,7 @@ const RoomPage: NextPage = () => {
   const setDatePick = useSetRecoilState(datePickState);
   const setTimeBlock = useSetRecoilState(timeBlockState);
   const setRoomUsers = useSetRecoilState(roomUsersState);
+  const setPickedTimes = useSetRecoilState(nowPickTimeState);
 
   //resetState
   const resetUsers = useResetRecoilState(roomUsersState);
@@ -33,6 +35,7 @@ const RoomPage: NextPage = () => {
   const resetSwitchAllSelectValue = useResetRecoilState(
     switchAllSelectValueState,
   );
+  const resetTimes = useResetRecoilState(nowPickTimeState);
 
   const router = useRouter();
 
@@ -43,8 +46,13 @@ const RoomPage: NextPage = () => {
     );
 
     if (initRoomInfo) {
-      const { pickedDates, resultBlocks, roomUsers } = initRoomInfo;
+      const { pickedDates, pickedTimes, resultBlocks, roomUsers } =
+        initRoomInfo;
       setDatePick([moment(pickedDates[0]), moment(pickedDates[1])]);
+      setPickedTimes([
+        moment(pickedTimes[0], 'HH:mm'),
+        moment(pickedTimes[1], 'HH:mm'),
+      ]);
       setTimeBlock(resultBlocks);
       setRoomUsers(roomUsers);
     }
@@ -77,6 +85,7 @@ const RoomPage: NextPage = () => {
       resetTimeBlocks();
       resetNowPickUser();
       resetSwitchAllSelectValue();
+      resetTimes();
     };
   }, [router.isReady]);
 
