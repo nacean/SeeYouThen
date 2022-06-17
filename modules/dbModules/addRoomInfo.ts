@@ -1,11 +1,11 @@
 import { setDoc, doc } from 'firebase/firestore/lite';
-import moment from 'moment';
+import { Moment } from 'moment';
 import { timeBlockType } from '../../atoms/timeAtoms/timeBlockState';
 import { db } from '../../fireStore/fireStoreApp';
 
 interface addRoomInfoType {
-  pickedDates: moment.Moment[];
-  pickedTimes: moment.Moment[];
+  pickedDates: (Moment | null)[];
+  pickedTimes: (Moment | null)[];
   timeBlocks: timeBlockType[];
   roomUsers: string[];
   roomId: string | string[];

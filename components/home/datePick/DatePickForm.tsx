@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, DatePicker, Popconfirm, TimePicker } from 'antd';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import datePickState from '../../../atoms/timeAtoms/datePickState';
@@ -24,17 +24,22 @@ function DatePickForm() {
   const roomId = useRecoilValue(roomIdState);
   const roomName = useRecoilValue(roomNameState);
   const roomUsers = useRecoilValue(roomUsersState);
+  const [tempTimes, setTempTimes] = useState<(null | Moment)[]>([null, null]);
+
+  useEffect(() => {
+    setTempTimes(pickedTimes);
+  }, [pickedTimes]);
 
   const onDatePickChange = (dateParam: (Moment | null)[] | null) => {
     setPickedDates(dateParam);
   };
 
   const onTimePickChange = (timeParam: (Moment | null)[] | null) => {
-    setPickedTimes(timeParam);
+    setTempTimes(timeParam);
   };
 
   const onDataChangeConfirm = () => {
-    if (pickedDates === null || pickedTimes === null) {
+    if (pickedDates === null || tempTimes === null) {
       alert('날짜와 시간 설정이 필요합니다.');
       return;
     }
@@ -42,8 +47,8 @@ function DatePickForm() {
     if (
       pickedDates[0] === null ||
       pickedDates[1] === null ||
-      pickedTimes[0] === null ||
-      pickedTimes[1] === null
+      tempTimes[0] === null ||
+      tempTimes[1] === null
     ) {
       alert('날짜와 시간 설정이 필요합니다.');
       return;
@@ -59,10 +64,7 @@ function DatePickForm() {
       const tempBlock: timeBlockType = {
         date: startDate.format('MM-DD'),
         col: tempCol++,
-        blocks: getBlankTimeBlock(
-          pickedTimes[0].clone(),
-          pickedTimes[1].clone(),
-        ),
+        blocks: getBlankTimeBlock(tempTimes[0].clone(), tempTimes[1].clone()),
       };
 
       newTimeBlock.push(tempBlock);
@@ -72,9 +74,10 @@ function DatePickForm() {
       startDate = startDate.add(1, 'days');
     }
     setTimeBlocks(newTimeBlock);
+    setPickedTimes(tempTimes);
     addRoomInfo({
       pickedDates,
-      pickedTimes,
+      pickedTimes: tempTimes,
       timeBlocks: newTimeBlock,
       roomUsers,
       roomId,
@@ -90,7 +93,7 @@ function DatePickForm() {
         placement="topRight"
       />
       <TimePicker.RangePicker
-        value={pickedTimes ? [pickedTimes[0], pickedTimes[1]] : null}
+        value={[tempTimes[0], tempTimes[1]]}
         placement="bottomRight"
         minuteStep={30}
         format="HH:mm"
