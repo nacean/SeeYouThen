@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore/lite';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../fireStore/fireStoreApp';
 
 async function initializeRoomInfo(roomId: string) {

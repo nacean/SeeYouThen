@@ -1,4 +1,4 @@
-import { setDoc, doc } from 'firebase/firestore/lite';
+import { setDoc, doc } from 'firebase/firestore';
 import { Moment } from 'moment';
 import { timeBlockType } from '../../atoms/timeAtoms/timeBlockState';
 import { db } from '../../fireStore/fireStoreApp';

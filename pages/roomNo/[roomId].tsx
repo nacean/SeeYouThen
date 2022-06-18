@@ -8,7 +8,8 @@ import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import roomNameState from '../../atoms/roomInfo/roomNameState';
 import roomIdState from '../../atoms/roomInfo/roomIdState';
 import initializeRoomInfo from '../../modules/dbModules/initializeRoomInfo';
-import { DocumentData } from 'firebase/firestore/lite';
+import { DocumentData, onSnapshot, doc } from 'firebase/firestore';
+import { db } from '../../fireStore/fireStoreApp';
 import { useEffect } from 'react';
 import datePickState from '../../atoms/timeAtoms/datePickState';
 import timeBlockState from '../../atoms/timeAtoms/timeBlockState';
@@ -39,8 +40,7 @@ const RoomPage: NextPage = () => {
 
   const router = useRouter();
 
-  const getRoomInfo = async () => {
-    const { roomName, roomId } = router.query;
+  const getRoomInfo = async (roomName: string, roomId: string) => {
     const initRoomInfo: DocumentData = await initializeRoomInfo(
       roomId as string,
     );
@@ -60,8 +60,7 @@ const RoomPage: NextPage = () => {
     setRoomId(roomId as string);
   };
 
-  const roomCheck = async () => {
-    const { roomName, roomId } = router.query;
+  const roomCheck = async (roomName: string, roomId: string) => {
     const roomIsValid = await checkRoomNameId(
       roomName as string,
       roomId as string,
@@ -75,8 +74,9 @@ const RoomPage: NextPage = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      roomCheck();
-      getRoomInfo();
+      const { roomName, roomId } = router.query;
+      roomCheck(roomName as string, roomId as string);
+      getRoomInfo(roomName as string, roomId as string);
     }
 
     return () => {
