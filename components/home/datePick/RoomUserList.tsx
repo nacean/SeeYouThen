@@ -15,7 +15,8 @@ function RoomUserList() {
       <div className={styles.pickedNameAndDelete}>
         {nowPickUser ? (
           <h3>
-            현재 선택한 이름 : <h4>{nowPickUser}</h4>
+            현재 선택한 이름 :
+            <p className={styles.nowPickUser}>{nowPickUser}</p>
           </h3>
         ) : (
           <h3>현재 선택된 이름이 없습니다</h3>
@@ -25,7 +26,11 @@ function RoomUserList() {
       <div className={styles.roomUserBox}>
         <ul className={styles.roomUserList}>
           {roomUsers.map((roomUser: string) => (
-            <RoomUser username={roomUser} isPicked={roomUser === nowPickUser} />
+            <RoomUser
+              key={roomUser}
+              username={roomUser}
+              isPicked={roomUser === nowPickUser}
+            />
           ))}
         </ul>
       </div>

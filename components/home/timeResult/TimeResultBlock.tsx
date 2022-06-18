@@ -149,7 +149,7 @@ function TimeResultBlock({
     return (
       <ul>
         {blockUsingUsers.map((userParam) => (
-          <li>{userParam}</li>
+          <li key={userParam}>{userParam}</li>
         ))}
       </ul>
     );
