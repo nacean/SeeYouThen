@@ -72,11 +72,18 @@ const RoomPage: NextPage = () => {
     }
   };
 
+  const listeningRoom = (roomName: string, roomId: string) => {
+    onSnapshot(doc(db, 'roomDB', roomId), (doc) => {
+      getRoomInfo(roomName, roomId);
+    });
+  };
+
   useEffect(() => {
     if (router.isReady) {
       const { roomName, roomId } = router.query;
       roomCheck(roomName as string, roomId as string);
       getRoomInfo(roomName as string, roomId as string);
+      listeningRoom(roomName as string, roomId as string);
     }
 
     return () => {
