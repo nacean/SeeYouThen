@@ -3,7 +3,19 @@ import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import Layout from '../components/layout/Layout';
 import Head from 'next/head';
+import { useEffect } from 'react';
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+  }, []);
+
   return (
     <RecoilRoot>
       <Head>
