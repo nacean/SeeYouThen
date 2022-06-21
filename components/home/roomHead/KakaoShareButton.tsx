@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import styles from './KaKaoShareButton.module.scss';
 
 interface KakaoShareButtonType {
   roomName: string;
@@ -19,7 +20,7 @@ function KakaoShareButton({ roomName, roomUrl }: KakaoShareButtonType) {
   };
 
   return (
-    <button onClick={kakaoShareOnClick}>
+    <button className={styles.kakaoShareBtn} onClick={kakaoShareOnClick}>
       <Image
         src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
         alt="카카오톡 공유 보내기 버튼"

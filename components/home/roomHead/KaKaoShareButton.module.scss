@@ -1,0 +1,20 @@
+@import '../../../styles/responsiveUtils.scss';
+
+.kakaoShareBtn {
+  font-size: 18px;
+  font-weight: 500;
+  position: absolute;
+  right: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+@include mobile {
+  .kakaoShareBtn {
+    position: inherit;
+    top: auto;
+    right: auto;
+    margin-top: 10px;
+  }
+}
