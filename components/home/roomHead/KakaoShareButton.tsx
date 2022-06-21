@@ -1,8 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import roomIdState from '../../../atoms/roomInfo/roomIdState';
-import roomNameState from '../../../atoms/roomInfo/roomNameState';
 
 interface KakaoShareButtonType {
   roomName: string;
@@ -10,8 +7,6 @@ interface KakaoShareButtonType {
 }
 
 function KakaoShareButton({ roomName, roomUrl }: KakaoShareButtonType) {
-  console.log(roomName);
-  console.log(roomUrl);
   const kakaoShareOnClick = () => {
     window.Kakao.Link.sendDefault({
       objectType: 'text',

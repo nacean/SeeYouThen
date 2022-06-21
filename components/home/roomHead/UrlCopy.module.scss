@@ -1,0 +1,19 @@
+@import '../../../styles/responsiveUtils.scss';
+
+.copyUrl {
+  font-size: 18px;
+  font-weight: 500;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}
+
+@include mobile {
+  .copyUrl {
+    position: inherit;
+    top: auto;
+    right: auto;
+    text-align: center;
+    height: 15px;
+  }
+}

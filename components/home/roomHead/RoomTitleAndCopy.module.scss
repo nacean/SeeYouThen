@@ -12,14 +12,6 @@
     font-weight: 700;
     padding: 30px 0;
   }
-
-  .copyUrl {
-    font-size: 18px;
-    font-weight: 500;
-    position: absolute;
-    top: 30px;
-    right: 20px;
-  }
 }
 
 @include mobile {
@@ -29,13 +21,6 @@
     text-align: center;
     h2 {
       padding: 10px 0;
-    }
-    .copyUrl {
-      position: inherit;
-      top: auto;
-      right: auto;
-      text-align: center;
-      height: 15px;
     }
   }
 }
