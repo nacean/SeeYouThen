@@ -2,12 +2,13 @@
 
 .timeLineList {
   position: relative;
-  top: -5px;
+  top: -6px;
+  right: 4px;
   width: 50px;
   height: 20px;
   display: flex;
-  justify-content: center;
-  font-size: 14px;
+  justify-content: end;
+  font-size: 13px;
   font-weight: 700;
 }
 
