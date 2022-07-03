@@ -14,9 +14,25 @@ function TimeLine() {
 
     const timeLines: string[] = [];
 
-    timeLines.push('time');
+    timeLines.push('');
     while (1) {
-      timeLines.push(startTime.format('HH:mm'));
+      const unRefinedTime = startTime.format('HH:mm');
+      if (unRefinedTime.slice(3, 5) !== '30') {
+        if (Number(unRefinedTime.slice(0, 2)) < 12) {
+          const newNumber =
+            unRefinedTime[0] === '0'
+              ? unRefinedTime.slice(1, 2)
+              : unRefinedTime.slice(0, 2);
+          timeLines.push(`${newNumber} AM`);
+        } else if (unRefinedTime.slice(0, 2) === '12') {
+          timeLines.push('12 PM');
+        } else {
+          const newNumber = Number(unRefinedTime.slice(0, 2)) - 12;
+          timeLines.push(`${String(newNumber)} PM`);
+        }
+      } else {
+        timeLines.push('');
+      }
 
       if (startTime.format('HH:mm') === endTime.format('HH:mm')) break;
 
