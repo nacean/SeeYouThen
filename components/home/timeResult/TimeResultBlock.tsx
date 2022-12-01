@@ -158,7 +158,9 @@ function TimeResultBlock({
   return (
     <Popover content={popOverUserList} placement="leftBottom">
       <div
-        className={blockColor()}
+        className={`${blockColor()} ${
+          row % 2 == 0 ? styles.oclock : styles.minute30
+        }`}
         onClick={onClickTimeBlock}
         onMouseOver={onMouseOverTimeBlock}
       ></div>

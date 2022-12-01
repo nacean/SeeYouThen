@@ -1,6 +1,6 @@
 @mixin blockSize {
-  width: 50px;
-  height: 20px;
+  width: 70px;
+  height: 35px;
   border: 1px solid black;
   transition: all 0.1s;
 
@@ -23,4 +23,12 @@
 .timeBlockSelected {
   @include blockSize;
   background-color: #adc6ff;
+}
+
+.oclock {
+  border-bottom-style: none;
+}
+
+.minute30 {
+  border-top-style: dashed;
 }
